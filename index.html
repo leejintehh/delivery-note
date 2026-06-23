@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Note</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            background-color: #f5f5f5;
+        }
+        .invoice-box {
+            max-width: 850px;
+            margin: auto;
+            padding: 30px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .logo-section {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .logo-dot { color: #8C4B31; }
+        .logo-subtext {
+            font-size: 10px;
+            color: #666;
+            margin-top: -5px;
+            font-weight: normal;
+            letter-spacing: 0;
+        }
+        .title-section {
+            text-align: right;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .company-details {
+            width: 100%;
+            font-size: 13px;
+            line-height: 18px;
+            margin-bottom: 30px;
+        }
+        .meta-table {
+            width: 35%;
+            float: right;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        .meta-table td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+        }
+        .meta-label {
+            background-color: #fdfdfd;
+            text-align: right;
+            width: 45%;
+        }
+        .clear { clear: both; }
+        .address-container {
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .address-box {
+            width: 46%;
+            float: left;
+            font-size: 12px;
+            line-height: 16px;
+        }
+        .address-box.right { float: right; }
+        .address-header {
+            background-color: #BDBDBD;
+            color: #000;
+            padding: 4px 8px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .item-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 40px;
+        }
+        .item-table th {
+            background-color: #BDBDBD;
+            color: #000;
+            padding: 6px 8px;
+            font-weight: bold;
+            text-align: left;
+            border: 1px solid #BDBDBD;
+        }
+        .item-table td {
+            padding: 8px;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+        .item-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .item-table tr.blank-row td { height: 24px; }
+        .item-table tr.total-row td { border-bottom: 2px solid #333; }
+        .footer-notice {
+            text-align: center;
+            font-size: 12px;
+            line-height: 18px;
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .thanks-msg {
+            font-weight: bold;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="invoice-box">
+    <!-- Top Header -->
+    <table class="header-table">
+        <tr>
+            <td>
+                <div class="logo-section">🪓 KEELE</div>
+                <div class="logo-subtext">KEELE PTE LTD</div>
+            </td>
+            <td class="title-section">Delivery Note</td>
+        </tr>
+    </table>
+
+    <!-- Company Meta and Dates Context Info -->
+    <div class="company-details">
+        <table class="meta-table">
+            <tr><td class="meta-label">Order Date</td><td id="current-date-1"></td></tr>
+            <tr><td class="meta-label">Order #</td><td>1550511</td></tr>
+            <tr><td class="meta-label">Delivery Note #</td><td></td></tr>
+            <tr><td class="meta-label">Customer ID</td><td>KB182</td></tr>
+            <tr><td class="meta-label">Despatch Date</td><td id="current-date-2"></td></tr>
+            <tr><td class="meta-label">Delivery Method</td><td></td></tr>
+        </table>
+        
+        <div style="width: 60%; float: left;">
+            10 Ubi Crescent, #01-28 Singapore<br>
+            Singapore 408564<br>
+            +65 67412581<br>
+            admin@keele.com.sg<br>
+            http://keele.com.sg<br>
+            Company Registration No. 199502951Z
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <!-- Address Blocks -->
+    <div class="address-container">
+        <div class="address-box">
+            <div class="address-header">Shipping Address</div>
+            Kathleen Chew<br>
+            20 Sandy Island<br>
+            Singapore 098461<br><br>
+            Tel: 64981126
+        </div>
+        <div class="address-box right">
+            <div class="address-header">Invoice Address</div>
+            Kathleen Chew<br>
+            20 Sandy Island<br>
+            Singapore 098461
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <!-- Main Line Items Table -->
+    <table class="item-table">
+        <thead>
+            <tr>
+                <th style="width: 8%;">Item #</th>
+                <th style="width: 62%;">Description</th>
+                <th style="width: 10%; text-align: center;">Ordered</th>
+                <th style="width: 10%; text-align: center;">Delivered</th>
+                <th style="width: 10%; text-align: center;">Outstanding</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Supply and deliver walnut timber plank</td>
+                <td style="text-align: center;">1</td>
+                <td style="text-align: center;">1</td>
+                <td style="text-align: center;">0</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Sand and varnish</td>
+                <td style="text-align: center;">1</td>
+                <td style="text-align: center;">1</td>
+                <td></td>
+            </tr>
+            <!-- Empty layout fillers matching image template rows -->
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr class="blank-row total-row"><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+    </table>
+
+    <!-- Footer Dynamic Legal Terms -->
+    <div class="footer-notice">
+        Notice must be given to us of any goods not received within 10 days taken from the date of despatch stated on invoice.<br>
+        Any Shortage or damage must be notified within 72 hours of receipt of goods.<br>
+        Complaints can only be accepted if made in writing within 30 days of receipt of goods.<br>
+        No goods may be returned without prior authorisation from company
+        
+        <div class="thanks-msg">Thank you for your business!</div>
+        Should you have any enquiries concerning this delivery note, please contact Jackson Tan on 81116852
+    </div>
+</div>
+
+<script>
+    // Logic to calculate dynamic dates formatted identically to the document
+    function getOrdinalSuffix(day) {
+        if (day > 3 && day < 21) return 'th';
+        switch (day % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
+    }
+
+    function generateFormattedDate() {
+        const today = new Date();
+        
+        // Emulating the document range style if needed, or simply today's single custom format
+        const day = today.getDate();
+        const monthNames = ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan"];
+        // Adjusted array alignment fallback context to grab standard human values natively:
+        const realMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const monthStr = realMonths[today.getMonth()];
+        const year = today.getFullYear();
+        
+        // Generates cleanly "23rd Jun 2026"
+        return `${day}${getOrdinalSuffix(day)} ${monthStr} ${year}`;
+    }
+
+    // Set dates dynamically across targets
+    const finalDateStr = generateFormattedDate();
+    document.getElementById('current-date-1').innerText = finalDateStr;
+    document.getElementById('current-date-2').innerText = finalDateStr;
+</script>
+
+</body>
+</html>
