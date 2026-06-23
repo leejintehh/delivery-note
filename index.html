@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delivery Note</title>
     <style>
+        /* Document Layout Wrapper */
         body {
             font-family: Arial, sans-serif;
             color: #333;
             margin: 0;
-            padding: 40px;
+            padding: 20px 0;
             background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        /* Mobile Scaling Wrapper */
+        .page-scaler {
+            width: 850px;
+            transform-origin: top center;
         }
         .invoice-box {
-            max-width: 850px;
-            margin: auto;
+            width: 790px; /* 850px total width minus 60px padding */
             padding: 30px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: content-box;
         }
+        /* Layout Structure Elements */
         .header-table {
             width: 100%;
             margin-bottom: 20px;
@@ -114,107 +124,108 @@
 </head>
 <body>
 
-<div class="invoice-box">
-    <!-- Top Header Layout with Image Logo Target -->
-    <table class="header-table">
-        <tr>
-            <td class="logo-container">
-                <!-- Relative pathway looks into your repository root files -->
-                <img src="Delivery-note4.jpg" alt="Company Logo" onerror="this.style.display='none'; alert('Please upload Delivery-note4.jpg to your repository to see the logo image.');">
-            </td>
-            <td class="title-section">Delivery Note</td>
-        </tr>
-    </table>
-
-    <!-- Company Meta and Dates Context Info -->
-    <div class="company-details">
-        <table class="meta-table">
-            <tr><td class="meta-label">Order Date</td><td id="current-range-date-1">Calculating...</td></tr>
-            <tr><td class="meta-label">Order #</td><td>1550511</td></tr>
-            <tr><td class="meta-label">Delivery Note #</td><td></td></tr>
-            <tr><td class="meta-label">Customer ID</td><td>KB182</td></tr>
-            <tr><td class="meta-label">Despatch Date</td><td id="current-range-date-2">Calculating...</td></tr>
-            <tr><td class="meta-label">Delivery Method</td><td></td></tr>
+<!-- Dynamic Scaling Container Viewport Watcher -->
+<div class="page-scaler" id="scaler">
+    <div class="invoice-box">
+        <!-- Top Header Layout -->
+        <table class="header-table">
+            <tr>
+                <td class="logo-container">
+                    <img src="Delivery-note4.jpg" alt="Company Logo" onerror="this.style.display='none';">
+                </td>
+                <td class="title-section">Delivery Note</td>
+            </tr>
         </table>
-        
-        <div style="width: 58%; float: left;">
-            KEELE PTE LTD<br>
-            10 Ubi Crescent, #01-28 Singapore<br>
-            Singapore 408564<br>
-            +65 67412581<br>
-            admin@keele.com.sg<br>
-            http://keele.com.sg<br>
-            Company Registration No. 199502951Z
-        </div>
-        <div class="clear"></div>
-    </div>
 
-    <!-- Address Blocks -->
-    <div class="address-container">
-        <div class="address-box">
-            <div class="address-header">Shipping Address</div>
-            Johnathan Doe Layouts<br>
-            20 Sandy Island<br>
-            Singapore 098461<br><br>
-            Tel: 64981126
+        <!-- Company Meta and Dates Context Info -->
+        <div class="company-details">
+            <table class="meta-table">
+                <tr><td class="meta-label">Order Date</td><td id="current-range-date-1">Calculating...</td></tr>
+                <tr><td class="meta-label">Order #</td><td>1550511</td></tr>
+                <tr><td class="meta-label">Delivery Note #</td><td></td></tr>
+                <tr><td class="meta-label">Customer ID</td><td>KB182</td></tr>
+                <tr><td class="meta-label">Despatch Date</td><td id="current-range-date-2">Calculating...</td></tr>
+                <tr><td class="meta-label">Delivery Method</td><td></td></tr>
+            </table>
+            
+            <div style="width: 58%; float: left;">
+                KEELE PTE LTD<br>
+                10 Ubi Crescent, #01-28 Singapore<br>
+                Singapore 408564<br>
+                +65 67412581<br>
+                admin@keele.com.sg<br>
+                http://keele.com.sg<br>
+                Company Registration No. 199502951Z
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="address-box right">
-            <div class="address-header">Invoice Address</div>
-            Johnathan Doe Layouts<br>
-            20 Sandy Island<br>
-            Singapore 098461
+
+        <!-- Address Blocks -->
+        <div class="address-container">
+            <div class="address-box">
+                <div class="address-header">Shipping Address</div>
+                Johnathan Doe Layouts<br>
+                20 Sandy Island<br>
+                Singapore 098461<br><br>
+                Tel: 64981126
+            </div>
+            <div class="address-box right">
+                <div class="address-header">Invoice Address</div>
+                Johnathan Doe Layouts<br>
+                20 Sandy Island<br>
+                Singapore 098461
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>
 
-    <!-- Main Line Items Table -->
-    <table class="item-table">
-        <thead>
-            <tr>
-                <th style="width: 8%;">Item #</th>
-                <th style="width: 62%;">Description</th>
-                <th style="width: 10%; text-align: center;">Ordered</th>
-                <th style="width: 10%; text-align: center;">Delivered</th>
-                <th style="width: 10%; text-align: center;">Outstanding</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Supply and deliver walnut timber plank</td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">0</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Sand and varnish</td>
-                <td style="text-align: center;">1</td>
-                <td style="text-align: center;">1</td>
-                <td></td>
-            </tr>
-            <!-- Empty layout fillers matching image template rows -->
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr class="blank-row total-row"><td></td><td></td><td></td><td></td><td></td></tr>
-        </tbody>
-    </table>
+        <!-- Main Line Items Table -->
+        <table class="item-table">
+            <thead>
+                <tr>
+                    <th style="width: 8%;">Item #</th>
+                    <th style="width: 62%;">Description</th>
+                    <th style="width: 10%; text-align: center;">Ordered</th>
+                    <th style="width: 10%; text-align: center;">Delivered</th>
+                    <th style="width: 10%; text-align: center;">Outstanding</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Supply and deliver walnut timber plank</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">0</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Sand and varnish</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                    <td></td>
+                </tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row"><td></td><td></td><td></td><td></td><td></td></tr>
+                <tr class="blank-row total-row"><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
 
-    <!-- Footer Legal Terms -->
-    <div class="footer-notice">
-        Notice must be given to us of any goods not received within 10 days taken from the date of despatch stated on invoice.<br>
-        Any Shortage or damage must be notified within 72 hours of receipt of goods.<br>
-        Complaints can only be accepted if made in writing within 30 days of receipt of goods.<br>
-        No goods may be returned without prior authorisation from company
-        
-        <div class="thanks-msg">Thank you for your business!</div>
-        Should you have any enquiries concerning this delivery note, please contact Jackson Tan on 81116852
+        <!-- Footer Legal Terms -->
+        <div class="footer-notice">
+            Notice must be given to us of any goods not received within 10 days taken from the date of despatch stated on invoice.<br>
+            Any Shortage or damage must be notified within 72 hours of receipt of goods.<br>
+            Complaints can only be accepted if made in writing within 30 days of receipt of goods.<br>
+            No goods may be returned without prior authorisation from company
+            
+            <div class="thanks-msg">Thank you for your business!</div>
+            Should you have any enquiries concerning this delivery note, please contact Jackson Tan on 81116852
+        </div>
     </div>
 </div>
 
@@ -232,35 +243,32 @@
 
     function generateDynamicDateRange() {
         const today = new Date();
-        
-        // Calculate Yesterday (Today - 1 day)
         const yesterday = new Date(today);
         yesterday.setDate(today.getDate() - 1);
-        
-        // Calculate Tomorrow (Today + 1 day)
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
         
-        // Formatter properties 
         const realMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        
         const startDay = yesterday.getDate();
         const endDay = tomorrow.getDate();
-        
-        // Target structural formatting matches the original "13th to 14th Feb 2025" logic structure
-        // If the month rolls over between yesterday and tomorrow, it accurately falls back to show the end target's month.
         const endMonthStr = realMonths[tomorrow.getMonth()];
         const endYear = tomorrow.getFullYear();
         
-        const finalRangeText = `${startDay}${getOrdinalSuffix(startDay)} to ${endDay}${getOrdinalSuffix(endDay)} ${endMonthStr} ${endYear}`;
-        return finalRangeText;
+        return `${startDay}${getOrdinalSuffix(startDay)} to ${endDay}${getOrdinalSuffix(endDay)} ${endMonthStr} ${endYear}`;
     }
 
-    // Assign range layout string onto targeted HTML nodes
+    // Set Date Range
     const dynamicRange = generateDynamicDateRange();
     document.getElementById('current-range-date-1').innerText = dynamicRange;
     document.getElementById('current-range-date-2').innerText = dynamicRange;
-</script>
 
-</body>
-</html>
+    // Viewport Scale Calculator
+    function adjustScale() {
+        const scaler = document.getElementById('scaler');
+        const bodyWidth = document.body.clientWidth;
+        const targetWidth = 850; // Match wrapper width element
+        
+        if (bodyWidth < targetWidth) {
+            const scaleFactor = bodyWidth / targetWidth;scaler.style.transform = scale(${scaleFactor});
+            document.body.style.height = ${scaler.getBoundingClientRect().height}px;} else {
+            scaler.style.transform = 'none';document.body.style.height = 'auto';}}window.addEventListener('resize', adjustScale);window.addEventListener('DOMContentLoaded', adjustScale);
