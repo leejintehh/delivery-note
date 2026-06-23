@@ -23,23 +23,16 @@
             width: 100%;
             margin-bottom: 20px;
         }
-        .logo-section {
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-        .logo-dot { color: #8C4B31; }
-        .logo-subtext {
-            font-size: 10px;
-            color: #666;
-            margin-top: -5px;
-            font-weight: normal;
-            letter-spacing: 0;
+        .logo-container img {
+            max-height: 70px;
+            width: auto;
+            display: block;
         }
         .title-section {
             text-align: right;
             font-size: 32px;
             font-weight: bold;
+            vertical-align: top;
         }
         .company-details {
             width: 100%;
@@ -48,7 +41,7 @@
             margin-bottom: 30px;
         }
         .meta-table {
-            width: 35%;
+            width: 38%;
             float: right;
             border-collapse: collapse;
             font-size: 12px;
@@ -122,12 +115,12 @@
 <body>
 
 <div class="invoice-box">
-    <!-- Top Header -->
+    <!-- Top Header Layout with Image Logo Target -->
     <table class="header-table">
         <tr>
-            <td>
-                <div class="logo-section">🪓 KEELE</div>
-                <div class="logo-subtext">KEELE PTE LTD</div>
+            <td class="logo-container">
+                <!-- Relative pathway looks into your repository root files -->
+                <img src="Delivery-note4.jpg" alt="Company Logo" onerror="this.style.display='none'; alert('Please upload Delivery-note4.jpg to your repository to see the logo image.');">
             </td>
             <td class="title-section">Delivery Note</td>
         </tr>
@@ -136,15 +129,16 @@
     <!-- Company Meta and Dates Context Info -->
     <div class="company-details">
         <table class="meta-table">
-            <tr><td class="meta-label">Order Date</td><td id="current-date-1"></td></tr>
+            <tr><td class="meta-label">Order Date</td><td id="current-range-date-1">Calculating...</td></tr>
             <tr><td class="meta-label">Order #</td><td>1550511</td></tr>
             <tr><td class="meta-label">Delivery Note #</td><td></td></tr>
             <tr><td class="meta-label">Customer ID</td><td>KB182</td></tr>
-            <tr><td class="meta-label">Despatch Date</td><td id="current-date-2"></td></tr>
+            <tr><td class="meta-label">Despatch Date</td><td id="current-range-date-2">Calculating...</td></tr>
             <tr><td class="meta-label">Delivery Method</td><td></td></tr>
         </table>
         
-        <div style="width: 60%; float: left;">
+        <div style="width: 58%; float: left;">
+            KEELE PTE LTD<br>
             10 Ubi Crescent, #01-28 Singapore<br>
             Singapore 408564<br>
             +65 67412581<br>
@@ -159,14 +153,14 @@
     <div class="address-container">
         <div class="address-box">
             <div class="address-header">Shipping Address</div>
-            Kathleen Chew<br>
+            Johnathan Doe Layouts<br>
             20 Sandy Island<br>
             Singapore 098461<br><br>
             Tel: 64981126
         </div>
         <div class="address-box right">
             <div class="address-header">Invoice Address</div>
-            Kathleen Chew<br>
+            Johnathan Doe Layouts<br>
             20 Sandy Island<br>
             Singapore 098461
         </div>
@@ -212,7 +206,7 @@
         </tbody>
     </table>
 
-    <!-- Footer Dynamic Legal Terms -->
+    <!-- Footer Legal Terms -->
     <div class="footer-notice">
         Notice must be given to us of any goods not received within 10 days taken from the date of despatch stated on invoice.<br>
         Any Shortage or damage must be notified within 72 hours of receipt of goods.<br>
@@ -225,7 +219,7 @@
 </div>
 
 <script>
-    // Logic to calculate dynamic dates formatted identically to the document
+    // Ordinal rule parser function (-st, -nd, -rd, -th)
     function getOrdinalSuffix(day) {
         if (day > 3 && day < 21) return 'th';
         switch (day % 10) {
@@ -236,25 +230,36 @@
         }
     }
 
-    function generateFormattedDate() {
+    function generateDynamicDateRange() {
         const today = new Date();
         
-        // Emulating the document range style if needed, or simply today's single custom format
-        const day = today.getDate();
-        const monthNames = ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan"];
-        // Adjusted array alignment fallback context to grab standard human values natively:
-        const realMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const monthStr = realMonths[today.getMonth()];
-        const year = today.getFullYear();
+        // Calculate Yesterday (Today - 1 day)
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
         
-        // Generates cleanly "23rd Jun 2026"
-        return `${day}${getOrdinalSuffix(day)} ${monthStr} ${year}`;
+        // Calculate Tomorrow (Today + 1 day)
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        
+        // Formatter properties 
+        const realMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        
+        const startDay = yesterday.getDate();
+        const endDay = tomorrow.getDate();
+        
+        // Target structural formatting matches the original "13th to 14th Feb 2025" logic structure
+        // If the month rolls over between yesterday and tomorrow, it accurately falls back to show the end target's month.
+        const endMonthStr = realMonths[tomorrow.getMonth()];
+        const endYear = tomorrow.getFullYear();
+        
+        const finalRangeText = `${startDay}${getOrdinalSuffix(startDay)} to ${endDay}${getOrdinalSuffix(endDay)} ${endMonthStr} ${endYear}`;
+        return finalRangeText;
     }
 
-    // Set dates dynamically across targets
-    const finalDateStr = generateFormattedDate();
-    document.getElementById('current-date-1').innerText = finalDateStr;
-    document.getElementById('current-date-2').innerText = finalDateStr;
+    // Assign range layout string onto targeted HTML nodes
+    const dynamicRange = generateDynamicDateRange();
+    document.getElementById('current-range-date-1').innerText = dynamicRange;
+    document.getElementById('current-range-date-2').innerText = dynamicRange;
 </script>
 
 </body>
