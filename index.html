@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delivery Note</title>
     <style>
-        /* Document Layout Wrapper */
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             color: #333;
             margin: 0;
-            padding: 20px 0;
+            padding: 0;
             background-color: #f5f5f5;
+        }
+        /* Bulletproof Mobile Viewport Scale Architecture */
+        .outer-viewport-container {
+            width: 100%;
+            overflow-x: auto;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-        }
-        /* Mobile Scaling Wrapper */
-        .page-scaler {
-            width: 850px;
-            transform-origin: top center;
         }
         .invoice-box {
-            width: 790px; /* 850px total width minus 60px padding */
-            padding: 30px;
+            width: 850px; 
+            min-width: 850px; /* Forces exact desktop dimensions to prevent column collapsing */
+            padding: 40px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: content-box;
         }
         /* Layout Structure Elements */
         .header-table {
@@ -124,8 +126,7 @@
 </head>
 <body>
 
-<!-- Dynamic Scaling Container Viewport Watcher -->
-<div class="page-scaler" id="scaler">
+<div class="outer-viewport-container">
     <div class="invoice-box">
         <!-- Top Header Layout -->
         <table class="header-table">
@@ -230,7 +231,6 @@
 </div>
 
 <script>
-    // Ordinal rules parser function (-st, -nd, -rd, -th)
     function getOrdinalSuffix(day) {
         if (day > 3 && day < 21) return 'th';
         switch (day % 10) {
@@ -242,33 +242,35 @@
     }
 
     function generateDynamicDateRange() {
-        const today = new Date();
-        const yesterday = new Date(today);
+        var today = new Date();
+        
+        var yesterday = new Date(today);
         yesterday.setDate(today.getDate() - 1);
-        const tomorrow = new Date(today);
+        
+        var tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
         
-        const realMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const startDay = yesterday.getDate();
-        const endDay = tomorrow.getDate();
-        const endMonthStr = realMonths[tomorrow.getMonth()];
-        const endYear = tomorrow.getFullYear();
+        var realMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         
-        return `${startDay}${getOrdinalSuffix(startDay)} to ${endDay}${getOrdinalSuffix(endDay)} ${endMonthStr} ${endYear}`;
+        var startDay = yesterday.getDate();
+        var endDay = tomorrow.getDate();
+        var endMonthStr = realMonths[tomorrow.getMonth()];
+        var endYear = tomorrow.getFullYear();
+        
+        return startDay + getOrdinalSuffix(startDay) + " to " + endDay + getOrdinalSuffix(endDay) + " " + endMonthStr + " " + endYear;
     }
 
-    // Viewport Scale Calculator
-    function adjustScale() {
-        const scaler = document.getElementById('scaler');
-        if (!scaler) return;
-        
-        const bodyWidth = document.body.clientWidth;
-        const targetWidth = 850; 
-        
-        if (bodyWidth < targetWidth) {
-            const scaleFactor = bodyWidth / targetWidth;
-            scaler.style.transform = `scale(${scaleFactor})`;
-            document.body.style.height = `${scaler.getBoundingClientRect().height}px`;
-        } else {scaler.style.transform = 'none';document.body.style.height = 'auto';}}
-    // Single consolidated execution function to prevent iOS race-conditions
-    function initializeDocument() {try {const dynamicRange = generateDynamicDateRange();document.getElementById('current-range-date-1').innerHTML = dynamicRange;document.getElementById('current-range-date-2').innerHTML = dynamicRange;} catch(e) {console.error("Date calculations interrupted", e);}adjustScale();}// Bind to multiple events to ensure iOS fires correctlywindow.addEventListener('resize', adjustScale);window.addEventListener('load', initializeDocument);document.addEventListener('DOMContentLoaded', initializeDocument);// Immediate fallback execution for mobile Safari optimizationinitializeDocument();
+    // Isolated script initializer to prevent race conditions on iOS and Android
+    (function() {
+        try {
+            var dynamicRange = generateDynamicDateRange();
+            document.getElementById('current-range-date-1').textContent = dynamicRange;
+            document.getElementById('current-range-date-2').textContent = dynamicRange;
+        } catch (error) {
+            console.log("Date initialization error: ", error);
+        }
+    })();
+</script>
+
+</body>
+</html>
