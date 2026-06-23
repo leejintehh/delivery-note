@@ -140,11 +140,11 @@
         <!-- Company Meta and Dates Context Info -->
         <div class="company-details">
             <table class="meta-table">
-                <tr><td class="meta-label">Order Date</td><td id="current-range-date-1">Calculating...</td></tr>
+                <tr><td class="meta-label">Order Date</td><td id="current-range-date-1">Pending...</td></tr>
                 <tr><td class="meta-label">Order #</td><td>1550511</td></tr>
                 <tr><td class="meta-label">Delivery Note #</td><td></td></tr>
                 <tr><td class="meta-label">Customer ID</td><td>KB182</td></tr>
-                <tr><td class="meta-label">Despatch Date</td><td id="current-range-date-2">Calculating...</td></tr>
+                <tr><td class="meta-label">Despatch Date</td><td id="current-range-date-2">Pending...</td></tr>
                 <tr><td class="meta-label">Delivery Method</td><td></td></tr>
             </table>
             
@@ -230,7 +230,7 @@
 </div>
 
 <script>
-    // Ordinal rule parser function (-st, -nd, -rd, -th)
+    // Ordinal rules parser function (-st, -nd, -rd, -th)
     function getOrdinalSuffix(day) {
         if (day > 3 && day < 21) return 'th';
         switch (day % 10) {
@@ -257,18 +257,18 @@
         return `${startDay}${getOrdinalSuffix(startDay)} to ${endDay}${getOrdinalSuffix(endDay)} ${endMonthStr} ${endYear}`;
     }
 
-    // Set Date Range
-    const dynamicRange = generateDynamicDateRange();
-    document.getElementById('current-range-date-1').innerText = dynamicRange;
-    document.getElementById('current-range-date-2').innerText = dynamicRange;
-
     // Viewport Scale Calculator
     function adjustScale() {
         const scaler = document.getElementById('scaler');
+        if (!scaler) return;
+        
         const bodyWidth = document.body.clientWidth;
-        const targetWidth = 850; // Match wrapper width element
+        const targetWidth = 850; 
         
         if (bodyWidth < targetWidth) {
-            const scaleFactor = bodyWidth / targetWidth;scaler.style.transform = scale(${scaleFactor});
-            document.body.style.height = ${scaler.getBoundingClientRect().height}px;} else {
-            scaler.style.transform = 'none';document.body.style.height = 'auto';}}window.addEventListener('resize', adjustScale);window.addEventListener('DOMContentLoaded', adjustScale);
+            const scaleFactor = bodyWidth / targetWidth;
+            scaler.style.transform = `scale(${scaleFactor})`;
+            document.body.style.height = `${scaler.getBoundingClientRect().height}px`;
+        } else {scaler.style.transform = 'none';document.body.style.height = 'auto';}}
+    // Single consolidated execution function to prevent iOS race-conditions
+    function initializeDocument() {try {const dynamicRange = generateDynamicDateRange();document.getElementById('current-range-date-1').innerHTML = dynamicRange;document.getElementById('current-range-date-2').innerHTML = dynamicRange;} catch(e) {console.error("Date calculations interrupted", e);}adjustScale();}// Bind to multiple events to ensure iOS fires correctlywindow.addEventListener('resize', adjustScale);window.addEventListener('load', initializeDocument);document.addEventListener('DOMContentLoaded', initializeDocument);// Immediate fallback execution for mobile Safari optimizationinitializeDocument();
